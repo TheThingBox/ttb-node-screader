@@ -1,0 +1,37 @@
+<script type="text/x-red" data-template-name="scReader in">
+  <div class="form-row">
+    <label for="node-input-port"><i class="fa fa-sign-in"></i> USB </label>
+    vendor <input type="text" id="node-input-vendor" placeholder="7511" style="width: 60px">
+    ID <input type="text" id="node-input-deviceID" placeholder="44040" style="width: 60px">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-tips">Tip: check the Vendor/ID pair with the "lsusb" Linux command.</div>
+</script>
+
+<script type="text/x-red" data-help-name="scReader in">
+  <p>A SmartCard reader input node, that produces a <b>msg.payload</b> containing a string identifying the card that has been read.</p>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('scReader in',{
+    category: 'input',
+    color:"#fff",
+    defaults: {
+      name: {value:""},
+      vendor: {value:"",required:true,validate:RED.validators.number()},
+      deviceID: {value:"",required:true,validate:RED.validators.number()}
+    },
+    inputs:0,
+    outputs:1,
+    icon: "logoscreader.png",
+    label: function() {
+      return this.name||"SCReader "+ this.vendor + ":" + this.deviceID;
+    },
+    labelStyle: function() {
+      return this.name?"node_label_italic":"";
+    }
+  });
+</script>
